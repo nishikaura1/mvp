@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Membrane – The Memory Firewall for AI Agents</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #050816;
+      --card: #0f172a;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56,189,248,0.08);
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --danger: #f97373;
+      --radius: 14px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+      background:radial-gradient(circle at top,#0b1120 0,var(--bg) 55%,#020617 100%);
+      color:var(--text);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    .page{max-width:960px;margin:0 auto;padding:32px 20px 64px}
+    header{display:flex;justify-content:space-between;align-items:center;margin-bottom:32px}
+    .logo{display:flex;align-items:center;gap:8px;font-weight:600;letter-spacing:.04em}
+    .logo-mark{
+      width:26px;height:26px;border-radius:999px;
+      background:conic-gradient(from 180deg,#22d3ee,#4f46e5,#22c55e,#22d3ee);
+      position:relative;
+    }
+    .logo-mark::after{
+      content:"";position:absolute;inset:4px;border-radius:inherit;
+      background:radial-gradient(circle at 30% 20%,#0ea5e9,#020617 55%);
+    }
+    .pill{
+      padding:4px 10px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.4);
+      font-size:11px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.12em;
+    }
+    .hero{
+      display:grid;
+      grid-template-columns:minmax(0,3.2fr) minmax(0,2.4fr);
+      gap:28px;
+      align-items:flex-start;
+      margin-bottom:40px;
+    }
+    @media (max-width:768px){
+      .hero{grid-template-columns:1fr}
+    }
+    h1{
+      font-size:2.35rem;
+      line-height:1.1;
+      margin-bottom:14px;
+    }
+    h1 span{color:var(--accent)}
+    .hero-sub{
+      color:var(--muted);
+      font-size:0.98rem;
+      max-width:34rem;
+      margin-bottom:18px;
+    }
+    .hero-sub b{color:#e5e7eb;font-weight:600}
+    .hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+    .btn{
+      border-radius:999px;
+      padding:9px 18px;
+      font-size:0.9rem;
+      border:1px solid transparent;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      transition:all .16s ease-out;
+      background:var(--accent);
+      color:#020617;
+      font-weight:500;
+      box-shadow:0 0 0 1px rgba(15,23,42,0.9),0 14px 40px rgba(56,189,248,0.35);
+    }
+    .btn span{font-size:1.05rem}
+    .btn.secondary{
+      background:transparent;
+      color:var(--muted);
+      border-color:rgba(148,163,184,0.4);
+      box-shadow:none;
+    }
+    .btn.secondary:hover{border-color:var(--accent);color:var(--text)}
+    .meta{
+      font-size:0.8rem;
+      color:var(--muted);
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+    }
+    .meta span{display:inline-flex;align-items:center;gap:5px}
+    .dot{width:6px;height:6px;border-radius:99px;background:#22c55e}
+    .card{
+      background:linear-gradient(145deg,rgba(15,23,42,0.96),rgba(15,23,42,0.94));
+      border-radius:var(--radius);
+      border:1px solid rgba(148,163,184,0.35);
+      padding:16px 16px 14px;
+      box-shadow:0 18px 45px rgba(0,0,0,0.7);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";position:absolute;inset:-40%;opacity:0.25;
+      background:
+        radial-gradient(circle at 10% 0,rgba(56,189,248,0.25),transparent 50%),
+        radial-gradient(circle at 90% 0,rgba(129,140,248,0.24),transparent 50%),
+        radial-gradient(circle at 50% 110%,rgba(56,189,248,0.18),transparent 55%);
+      z-index:-1;
+    }
+    .card-label{
+      text-transform:uppercase;
+      font-size:0.7rem;
+      letter-spacing:.16em;
+      color:var(--muted);
+      margin-bottom:8px;
+    }
+    .metric-row{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:6px}
+    .metric-label{font-size:0.8rem;color:var(--muted)}
+    .metric-value{font-size:1.3rem;font-weight:600}
+    .metric-value span{font-size:0.85rem;font-weight:400;color:var(--muted);margin-left:4px}
+    .trend{font-size:0.75rem;color:#4ade80}
+    .mini-title{font-size:0.9rem;margin:10px 0 4px}
+    .mini-copy{font-size:0.8rem;color:var(--muted)}
+    .code-block{
+      margin-top:10px;
+      background:rgba(15,23,42,0.95);
+      border-radius:10px;
+      border:1px solid rgba(15,23,42,0.9);
+      padding:10px 11px;
+      font-family:SFMono-Regular,Menlo,monospace;
+      font-size:0.76rem;
+      color:#e5e7eb;
+      overflow-x:auto;
+    }
+    .code-prefix{color:#4ade80;margin-right:6px}
+    .pill-inline{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:3px 8px;
+      border-radius:999px;
+      background:rgba(15,23,42,0.95);
+      border:1px solid rgba(148,163,184,0.4);
+      font-size:0.7rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      color:var(--muted);
+      margin-top:6px;
+    }
+    section{margin-bottom:34px}
+    h2{
+      font-size:1.1rem;
+      text-transform:uppercase;
+      letter-spacing:.18em;
+      color:var(--muted);
+      margin-bottom:10px;
+    }
+    .cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;font-size:0.9rem}
+    @media (max-width:900px){.cols{grid-template-columns:1fr}}
+    .cols p{color:var(--muted);font-size:0.9rem}
+    .cols strong{color:var(--text);font-weight:600}
+    ul{list-style:none;margin-top:6px;font-size:0.9rem;color:var(--muted)}
+    ul li{margin:4px 0}
+    .tag{display:inline-flex;align-items:center;gap:6px;padding:4px 9px;border-radius:999px;background:var(--accent-soft);color:var(--accent);font-size:0.75rem}
+    .tag span{font-size:0.9rem}
+    footer{
+      border-top:1px solid rgba(31,41,55,0.9);
+      padding-top:14px;
+      margin-top:20px;
+      font-size:0.78rem;
+      color:var(--muted);
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:8px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="logo">
+        <div class="logo-mark"></div>
+        <div>Membrane</div>
+      </div>
+      <div class="pill">YC F25 · AI Agent Security</div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero">
+        <div>
+          <h1>
+            Stop <span>zombie agents</span><br/>
+            at the memory layer.
+          </h1>
+          <p class="hero-sub">
+            Membrane is the <b>memory firewall</b> for AI agents.  
+            We sit between agents and their long‑term memory to detect and neutralize
+            poisoned memories, persistent backdoors, and zombie‑like behaviors before they
+            turn into data breaches.
+          </p>
+
+          <div class="hero-actions">
+            <a href="mailto:founders@membrane.ai" class="btn">
+              <span>✉</span> Talk to the founders
+            </a>
+            <a href="#how-it-works" class="btn secondary">How it works</a>
+          </div>
+
+          <div class="meta">
+            <span><span class="dot"></span> Pre‑launch, MVP in development</span>
+            <span>Integrations: OpenAI / Bedrock agents, pgvector</span>
+          </div>
+        </div>
+
+        <!-- RIGHT CARD -->
+        <aside class="card">
+          <div class="card-label">Live telemetry (sample)</div>
+
+          <div class="metric-row">
+            <div class="metric-label">Active agent sessions</div>
+            <div class="metric-value">38<span>today</span></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label">Suspicious memory clusters</div>
+            <div class="metric-value" style="color:var(--danger);">
+              3<span>pending review</span>
+            </div>
+          </div>
+          <div class="metric-row" style="margin-bottom:10px;">
+            <div class="metric-label">High‑risk behaviors blocked</div>
+            <div class="metric-value">
+              17<span>last 24h</span>
+            </div>
+          </div>
+
+          <div class="mini-title">What we show security teams</div>
+          <p class="mini-copy">
+            We connect each risky action back to the <b>exact memory chunks</b> that
+            influenced it, and let you quarantine or mute those memories with one click.
+          </p>
+
+          <div class="code-block">
+            <span class="code-prefix">membrane&gt;</span>
+            agent="billing-bot" action="email_export"
+            <br/>
+            <span class="code-prefix">cause&gt;</span>
+            memory_ids=[M-324, M-771] risk="exfiltration"
+            <br/>
+            <span class="code-prefix">fix&gt;</span>
+            quarantine(M-324) mute(M-771)
+          </div>
+
+          <div class="pill-inline">
+            <span>◎</span> Drop‑in SDK, no model changes
+          </div>
+        </aside>
+      </section>
+
+      <!-- WHAT WE MAKE -->
+      <section id="how-it-works">
+        <h2>What we are building</h2>
+        <div class="cols">
+          <div>
+            <strong>Instrumented memory layer</strong>
+            <p>
+              Lightweight clients wrap vector‑DB and key‑value stores used as agent memory.
+              We log every write and read, plus which tools and actions follow each recall.
+            </p>
+            <ul>
+              <li>Plug into existing agents in minutes</li>
+              <li>No change to prompts or business logic</li>
+            </ul>
+          </div>
+          <div>
+            <strong>Attribution & detection engine</strong>
+            <p>
+              Our backend correlates unexpected behaviors with specific memory chunks and
+              surfaces patterns that look like memory poisoning, persistent backdoors, or
+              goal drift.
+            </p>
+            <ul>
+              <li>“This action happened because of memory M‑123”</li>
+              <li>Detects long‑horizon zombie‑agent patterns</li>
+            </ul>
+          </div>
+          <div>
+            <strong>Security control plane</strong>
+            <p>
+              A simple console gives security and platform teams visibility into their
+              agents’ memories and lets them quarantine, mute, or roll back risky state
+              without touching model weights.
+            </p>
+            <ul>
+              <li>One‑click quarantine & rollback</li>
+              <li>Tenant‑ and agent‑level policies</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY NOW -->
+      <section>
+        <h2>Why now</h2>
+        <div class="cols">
+          <div>
+            <span class="tag"><span>☣</span> Zombie agents</span>
+            <p>
+              Enterprises are giving agents long‑term memory and access to real systems
+              (email, CRM, billing).  
+              Memory poisoning and persistent backdoors can turn those agents into
+              “zombies” that quietly exfiltrate data or bypass policy.
+            </p>
+          </div>
+          <div>
+            <strong>Missing layer in the stack</strong>
+            <p>
+              Existing AI security tools focus on prompts, inputs, and permissions.
+              Almost nobody is watching the long‑term memory that actually shapes
+              agent behavior over days or weeks.
+            </p>
+          </div>
+          <div>
+            <strong>Our wedge</strong>
+            <p>
+              Membrane owns the link between memory and action.  
+              We don’t replace observability or firewalls – we make them smarter by
+              showing <em>which memories</em> are making your agents act strangely and
+              giving you precise controls to neutralize them.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 Membrane · Built for the agentic era</span>
+      <span>Contact: founders@membrane.ai</span>
+    </footer>
+  </div>
+</body>
+</html>
