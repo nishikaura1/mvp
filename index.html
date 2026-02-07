@@ -7,7 +7,6 @@
   <style>
     :root {
       --bg: #020617;
-      --bg-alt: #020b1f;
       --card: #020b1f;
       --border: #1f2933;
       --accent: #38bdf8;
@@ -69,7 +68,7 @@
       display:grid;
       grid-template-columns:minmax(0,2.3fr) minmax(0,2fr);
       gap:24px;
-      margin-bottom:26px;
+      margin-bottom:22px;
     }
     @media (max-width:800px){ .hero{grid-template-columns:1fr;} }
 
@@ -82,7 +81,7 @@
     h1 span { color:var(--accent); }
 
     .hero-sub {
-      font-size:0.98rem;
+      font-size:1.0rem;
       color:var(--muted);
       margin-bottom:18px;
       max-width:32rem;
@@ -123,10 +122,28 @@
       display:flex;
       flex-wrap:wrap;
       gap:12px;
-      margin-top:4px;
+      margin-top:6px;
     }
     .meta span { display:inline-flex;align-items:center;gap:5px; }
     .dot { width:6px;height:6px;border-radius:999px;background:#22c55e; }
+
+    .who-bar {
+      margin-top:20px;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,0.4);
+      font-size:0.82rem;
+      color:var(--muted);
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .who-label {
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      font-size:0.72rem;
+      color:var(--accent);
+    }
 
     /* CARD */
     .card {
@@ -222,6 +239,28 @@
       margin-bottom:10px;
     }
 
+    .outcomes {
+      border-radius:var(--radius);
+      border:1px solid rgba(148,163,184,0.4);
+      padding:12px 14px;
+      margin-bottom:26px;
+      background:rgba(2,6,23,0.8);
+      font-size:0.9rem;
+    }
+    .outcomes-title {
+      font-size:0.8rem;
+      text-transform:uppercase;
+      letter-spacing:.16em;
+      color:var(--muted);
+      margin-bottom:6px;
+    }
+    .outcomes ul {
+      list-style:none;
+      color:var(--muted);
+      font-size:0.9rem;
+    }
+    .outcomes li { margin:3px 0; }
+
     .cols {
       display:grid;
       grid-template-columns:repeat(3,minmax(0,1fr));
@@ -283,25 +322,31 @@
       <section class="hero">
         <div>
           <h1>
-            See how risky agent behavior<br />
-            <span>emerges from memory.</span>
+            See which memories are<br />
+            <span>driving risky agent behavior.</span>
           </h1>
           <p class="hero-sub">
             Membrane is a <b>memory observability and causality layer</b> for AI agents.
-            We watch how memories are written, recalled, and turned into actions, so you can
-            explain and contain zombie‑like behaviors before they become incidents.
+            We trace each action back through prompts, tools, and long‑term memory so you
+            can see which stored memories caused it—and switch off the bad ones without
+            killing the agent.
           </p>
 
           <div class="hero-actions">
             <a href="mailto:founders@membrane.ai" class="btn">
-              <span>✉</span> Talk to the founders
+              <span>✉</span> Request early access
             </a>
             <a href="#how-it-works" class="btn secondary">How it works</a>
           </div>
 
           <div class="meta">
             <span><span class="dot"></span> Pre‑launch · MVP in development</span>
-            <span>Initial targets: OpenAI / Bedrock agents, pgvector</span>
+            <span>Built for security & platform teams shipping long‑memory agents</span>
+          </div>
+
+          <div class="who-bar">
+            <span class="who-label">For</span>
+            <span>CISOs, AppSec, and AI platform teams running agents across email, ITSM, finance, and customer support.</span>
           </div>
         </div>
 
@@ -310,18 +355,18 @@
           <div class="card-title">One incident, fully explained</div>
 
           <div class="metric-row">
-            <div class="metric-label">Agent sessions observed</div>
+            <div class="metric-label">Agents monitored</div>
             <div class="metric-value">38<span>today</span></div>
           </div>
           <div class="metric-row">
-            <div class="metric-label">Actions with a clear cause</div>
-            <div class="metric-value">412<span>last 24h</span></div>
+            <div class="metric-label">Risky actions explained</div>
+            <div class="metric-value" style="color:var(--danger);">
+              17<span>this week</span>
+            </div>
           </div>
           <div class="metric-row" style="margin-bottom:12px;">
-            <div class="metric-label">High‑risk behaviors explained</div>
-            <div class="metric-value" style="color:var(--danger);">
-              17<span>linked to 9 chunks</span>
-            </div>
+            <div class="metric-label">Memories driving those actions</div>
+            <div class="metric-value">9<span>chunks</span></div>
           </div>
 
           <p class="mini-copy">
@@ -330,9 +375,18 @@
           </p>
 
           <div class="flow">
-            <div class="flow-step"><span>1. Memory saved</span><br />“Send monthly report to external email.”</div>
-            <div class="flow-step"><span>2. Memory recalled</span><br />Agent plans a billing‑summary task.</div>
-            <div class="flow-step"><span>3. Action taken</span><br />Email with customer data leaves your org.</div>
+            <div class="flow-step">
+              <span>1. Memory saved</span><br />
+              “Send monthly report to external email.”
+            </div>
+            <div class="flow-step">
+              <span>2. Memory recalled</span><br />
+              Agent plans a billing‑summary task.
+            </div>
+            <div class="flow-step">
+              <span>3. Action taken</span><br />
+              Email with customer data leaves your org.
+            </div>
           </div>
 
           <div class="code">
@@ -349,29 +403,39 @@
         </aside>
       </section>
 
-      <!-- WHAT WE ARE BUILDING -->
+      <!-- OUTCOMES -->
+      <section class="outcomes">
+        <div class="outcomes-title">With Membrane, you can</div>
+        <ul>
+          <li>• Explain any risky agent action back to the memories and tools that caused it.</li>
+          <li>• See which long‑term memories are poisoning behavior across sessions.</li>
+          <li>• Quarantine or down‑weight bad memories without rewriting prompts or code.</li>
+        </ul>
+      </section>
+
+      <!-- HOW IT WORKS -->
       <section id="how-it-works">
-        <h2>What we are building</h2>
+        <h2>How Membrane works</h2>
         <div class="cols">
           <div>
-            <strong>Memory observability layer</strong>
+            <strong>Observe memory</strong>
             <p>
               Lightweight clients wrap the vector and key‑value stores your agents use
-              as long‑term memory. We log each write and read, plus the tools and
-              actions that follow, creating a clean timeline from memory to behavior.
+              as long‑term memory. We log each write and read, plus the prompts, tools,
+              and actions around it, creating a clean timeline from memory to behavior.
             </p>
           </div>
           <div>
-            <strong>Attribution & causality engine</strong>
+            <strong>Explain behavior</strong>
             <p>
               Our backend correlates unexpected behaviors with specific memory chunks
-              and surfaces patterns that look like memory poisoning, persistent
-              backdoors, or goal drift—“this happened because of M‑324,” not just
-              “something is off.”
+              and tool outputs, surfacing patterns that look like memory poisoning,
+              persistent backdoors, or goal drift—“this happened because of M‑324,” not
+              just “something is off.”
             </p>
           </div>
           <div>
-            <strong>Memory‑aware control plane</strong>
+            <strong>Control risk</strong>
             <p>
               A simple console lets security and platform teams inspect influential
               memories, quarantine or mute suspicious chunks, and roll back to
@@ -384,14 +448,17 @@
       <!-- WHY NOW -->
       <section>
         <h2>Why now</h2>
+        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">
+          Agents now run critical workflows with persistent memory, but most teams
+          have no idea how that memory is shaping decisions.
+        </p>
         <div class="cols">
           <div>
             <div class="tag"><span>☣</span> Zombie agents</div>
             <p>
-              Agents now have long‑term memory and real system access (email, CRM,
-              billing). When that memory is poisoned, they quietly replay attacker
-              instructions across sessions, and nobody can explain where the behavior
-              came from.
+              Agents with long‑term memory quietly replay attacker instructions or
+              stale state across sessions, creating “zombie” behaviors that are hard
+              to see in normal testing but dangerous in production.
             </p>
           </div>
           <div>
