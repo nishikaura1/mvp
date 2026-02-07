@@ -28,27 +28,27 @@
     }
     a { text-decoration:none;color:inherit; }
 
-    /* floating background orbs */
+    /* floating “cyber” orbs */
     .orb {
       position:fixed;
-      width:120px;
-      height:120px;
+      width:140px;
+      height:140px;
       border-radius:999px;
-      background:radial-gradient(circle at 30% 20%,rgba(56,189,248,0.7),transparent 60%);
-      opacity:0.18;
+      background:radial-gradient(circle at 30% 20%,rgba(56,189,248,0.75),transparent 60%);
+      opacity:0.2;
       filter:blur(1px);
       pointer-events:none;
       z-index:-1;
-      animation:float 12s ease-in-out infinite alternate;
+      animation:float 14s ease-in-out infinite alternate;
     }
-    .orb.orb-1 { top:16%; left:5%; }
-    .orb.orb-2 { top:64%; right:6%; animation-delay:-4s; }
-    .orb.orb-3 { top:40%; left:50%; width:160px;height:160px;opacity:0.12;animation-delay:-8s; }
+    .orb.orb-1 { top:14%; left:4%; }
+    .orb.orb-2 { top:62%; right:6%; animation-delay:-5s; }
+    .orb.orb-3 { top:40%; left:52%; width:180px;height:180px;opacity:0.14;animation-delay:-9s; }
 
     @keyframes float {
       0% { transform:translate3d(0,0,0) scale(1); }
-      50% { transform:translate3d(15px,-10px,0) scale(1.05); }
-      100% { transform:translate3d(-10px,10px,0) scale(1.02); }
+      50% { transform:translate3d(18px,-12px,0) scale(1.06); }
+      100% { transform:translate3d(-14px,16px,0) scale(1.02); }
     }
 
     .page {
@@ -81,7 +81,7 @@
     }
     @keyframes pulse {
       0%,100%{box-shadow:0 0 18px rgba(56,189,248,0.4);}
-      50%{box-shadow:0 0 32px rgba(56,189,248,0.8);}
+      50%{box-shadow:0 0 32px rgba(56,189,248,0.85);}
     }
     .chip {
       padding:4px 10px;
@@ -96,8 +96,8 @@
     /* shared scroll animation */
     .fade {
       opacity:0;
-      transform:translateY(16px);
-      transition:opacity .6s ease-out, transform .6s ease-out;
+      transform:translateY(20px);
+      transition:opacity .7s ease-out, transform .7s ease-out;
     }
     .fade.visible {
       opacity:1;
@@ -172,26 +172,6 @@
     .meta span { display:inline-flex;align-items:center;gap:5px; }
     .dot { width:6px;height:6px;border-radius:999px;background:#22c55e; }
 
-    .who-bar {
-      margin-top:18px;
-      padding:9px 13px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,0.35);
-      font-size:0.82rem;
-      color:var(--muted);
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      backdrop-filter:blur(10px);
-      background:rgba(15,23,42,0.7);
-    }
-    .who-label {
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      font-size:0.72rem;
-      color:var(--accent);
-    }
-
     /* INCIDENT CARD */
     .card {
       background:radial-gradient(circle at top left,#0b1120,#020617 55%);
@@ -202,20 +182,21 @@
       position:relative;
       overflow:hidden;
     }
+    /* animated glow sweep */
     .card::before{
       content:"";
       position:absolute;
       top:-40%;left:-40%;right:-40%;bottom:-40%;
-      background:linear-gradient(120deg,transparent,rgba(56,189,248,0.15),transparent);
+      background:linear-gradient(120deg,transparent,rgba(56,189,248,0.2),transparent);
       opacity:0;
       transform:translateX(-40%);
-      animation:glow-sweep 6s linear infinite;
+      animation:glow-sweep 7s linear infinite;
     }
     @keyframes glow-sweep {
       0%{opacity:0;transform:translateX(-40%);}
-      40%{opacity:0;}
-      55%{opacity:1;}
-      70%{opacity:0;transform:translateX(40%);}
+      45%{opacity:0;}
+      60%{opacity:1;}
+      75%{opacity:0;transform:translateX(40%);}
       100%{opacity:0;transform:translateX(40%);}
     }
 
@@ -532,15 +513,19 @@
   </div>
 
   <script>
-    // scroll fade-in for sections
+    // Scroll fade-in for any .fade element
     const observer = new IntersectionObserver(
       entries => {
-        entries.forEach(e => {
-          if (e.isIntersecting) e.target.classList.add('visible');
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
         });
       },
       { threshold: 0.15 }
     );
+
     document.querySelectorAll('.fade').forEach(el => observer.observe(el));
   </script>
 </body>
