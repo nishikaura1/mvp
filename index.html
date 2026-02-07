@@ -10,11 +10,11 @@
       --card: #020b1f;
       --border: #1f2933;
       --accent: #38bdf8;
-      --accent-soft: rgba(56,189,248,0.08);
+      --accent-soft: rgba(56,189,248,0.1);
       --text: #e5e7eb;
       --muted: #9ca3af;
       --danger: #f97373;
-      --radius: 16px;
+      --radius: 18px;
     }
     * { box-sizing:border-box;margin:0;padding:0; }
     body {
@@ -27,9 +27,9 @@
     a { text-decoration:none;color:inherit; }
 
     .page {
-      max-width: 900px;
+      max-width: 960px;
       margin: 0 auto;
-      padding: 28px 18px 56px;
+      padding: 28px 18px 80px;
     }
 
     header {
@@ -52,6 +52,11 @@
       border-radius:999px;
       background:radial-gradient(circle at 20% 0,#38bdf8,#0f172a 55%,#000 100%);
       box-shadow:0 0 22px rgba(56,189,248,0.55);
+      animation:pulse 3s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100%{box-shadow:0 0 18px rgba(56,189,248,0.4);}
+      50%{box-shadow:0 0 32px rgba(56,189,248,0.8);}
     }
     .chip {
       padding:4px 10px;
@@ -66,22 +71,23 @@
     /* HERO */
     .hero {
       display:grid;
-      grid-template-columns:minmax(0,2.3fr) minmax(0,2fr);
-      gap:24px;
-      margin-bottom:22px;
+      grid-template-columns:minmax(0,2.2fr) minmax(0,2fr);
+      gap:28px;
+      margin-bottom:40px;
+      align-items:center;
     }
-    @media (max-width:800px){ .hero{grid-template-columns:1fr;} }
+    @media (max-width:800px){ .hero{grid-template-columns:1fr;margin-bottom:32px;} }
 
     h1 {
-      font-size:2.1rem;
-      line-height:1.08;
+      font-size:2.4rem;
+      line-height:1.05;
       margin-bottom:14px;
-      letter-spacing:-.02em;
+      letter-spacing:-.03em;
     }
     h1 span { color:var(--accent); }
 
     .hero-sub {
-      font-size:1.0rem;
+      font-size:1rem;
       color:var(--muted);
       margin-bottom:18px;
       max-width:32rem;
@@ -96,23 +102,27 @@
     }
     .btn {
       border-radius:999px;
-      padding:8px 16px;
-      font-size:0.9rem;
+      padding:9px 18px;
+      font-size:0.92rem;
       border:1px solid transparent;
       cursor:pointer;
       display:inline-flex;
       align-items:center;
       gap:6px;
-      transition:all .16s ease-out;
+      transition:transform .14s ease-out, box-shadow .14s ease-out, border-color .14s;
       background:var(--accent);
       color:#020617;
       font-weight:500;
+      box-shadow:0 12px 30px rgba(56,189,248,0.35);
     }
     .btn span { font-size:1.02rem; }
+    .btn:hover { transform:translateY(-1px);box-shadow:0 16px 40px rgba(56,189,248,0.45); }
+
     .btn.secondary {
       background:transparent;
       color:var(--muted);
       border-color:rgba(148,163,184,0.55);
+      box-shadow:none;
     }
     .btn.secondary:hover { border-color:var(--accent);color:var(--text); }
 
@@ -128,15 +138,17 @@
     .dot { width:6px;height:6px;border-radius:999px;background:#22c55e; }
 
     .who-bar {
-      margin-top:20px;
-      padding:10px 14px;
+      margin-top:18px;
+      padding:9px 13px;
       border-radius:999px;
-      border:1px solid rgba(148,163,184,0.4);
+      border:1px solid rgba(148,163,184,0.35);
       font-size:0.82rem;
       color:var(--muted);
       display:flex;
       flex-wrap:wrap;
       gap:8px;
+      backdrop-filter:blur(10px);
+      background:rgba(15,23,42,0.7);
     }
     .who-label {
       text-transform:uppercase;
@@ -147,10 +159,23 @@
 
     /* CARD */
     .card {
-      background:linear-gradient(150deg,var(--card),#000712);
+      background:radial-gradient(circle at top left,#0b1120,#020617 55%);
       border-radius:var(--radius);
       border:1px solid var(--border);
       padding:16px 16px 14px;
+      box-shadow:0 18px 40px rgba(0,0,0,0.7);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:-40%;
+      opacity:0.24;
+      background:
+        radial-gradient(circle at 0 0,rgba(56,189,248,0.25),transparent 55%),
+        radial-gradient(circle at 100% 0,rgba(96,165,250,0.18),transparent 55%);
+      z-index:-1;
     }
     .card-title {
       font-size:0.78rem;
@@ -229,10 +254,10 @@
     }
 
     /* SECTIONS */
-    section { margin-bottom:30px; }
+    section { margin-bottom:36px; }
 
     h2 {
-      font-size:0.88rem;
+      font-size:0.9rem;
       text-transform:uppercase;
       letter-spacing:.18em;
       color:var(--muted);
@@ -240,26 +265,27 @@
     }
 
     .outcomes {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      margin-bottom:40px;
+    }
+    @media (max-width:900px){ .outcomes{grid-template-columns:1fr; } }
+
+    .outcome-pill {
       border-radius:var(--radius);
       border:1px solid rgba(148,163,184,0.4);
-      padding:12px 14px;
-      margin-bottom:26px;
-      background:rgba(2,6,23,0.8);
+      padding:10px 12px;
+      background:rgba(2,6,23,0.85);
+      font-size:0.9rem;
+      color:var(--muted);
+    }
+    .outcome-pill strong {
+      display:block;
+      margin-bottom:4px;
+      color:var(--text);
       font-size:0.9rem;
     }
-    .outcomes-title {
-      font-size:0.8rem;
-      text-transform:uppercase;
-      letter-spacing:.16em;
-      color:var(--muted);
-      margin-bottom:6px;
-    }
-    .outcomes ul {
-      list-style:none;
-      color:var(--muted);
-      font-size:0.9rem;
-    }
-    .outcomes li { margin:3px 0; }
 
     .cols {
       display:grid;
@@ -305,6 +331,17 @@
       justify-content:space-between;
       gap:6px;
     }
+
+    /* simple scroll fade */
+    .fade {
+      opacity:0;
+      transform:translateY(6px);
+      transition:opacity .5s ease-out, transform .5s ease-out;
+    }
+    .fade.visible {
+      opacity:1;
+      transform:translateY(0);
+    }
   </style>
 </head>
 <body>
@@ -341,12 +378,12 @@
 
           <div class="meta">
             <span><span class="dot"></span> Pre‑launch · MVP in development</span>
-            <span>Built for security & platform teams shipping long‑memory agents</span>
+            <span>Initial integrations: OpenAI / Bedrock agents, pgvector</span>
           </div>
 
           <div class="who-bar">
             <span class="who-label">For</span>
-            <span>CISOs, AppSec, and AI platform teams running agents across email, ITSM, finance, and customer support.</span>
+            <span>CISOs, AppSec, and AI platform teams running long‑memory agents across email, ITSM, finance, and support.</span>
           </div>
         </div>
 
@@ -365,13 +402,12 @@
             </div>
           </div>
           <div class="metric-row" style="margin-bottom:12px;">
-            <div class="metric-label">Memories driving those actions</div>
+            <div class="metric-label">Memories behind them</div>
             <div class="metric-value">9<span>chunks</span></div>
           </div>
 
           <p class="mini-copy">
-            Membrane traces a straight line from a stored memory to a risky action,
-            so your incident review starts with a story, not a mystery.
+            We show which memory → which tool call → which risky action.
           </p>
 
           <div class="flow">
@@ -404,78 +440,77 @@
       </section>
 
       <!-- OUTCOMES -->
-      <section class="outcomes">
-        <div class="outcomes-title">With Membrane, you can</div>
-        <ul>
-          <li>• Explain any risky agent action back to the memories and tools that caused it.</li>
-          <li>• See which long‑term memories are poisoning behavior across sessions.</li>
-          <li>• Quarantine or down‑weight bad memories without rewriting prompts or code.</li>
-        </ul>
+      <section class="fade" id="outcomes">
+        <h2>What you get</h2>
+        <div class="outcomes">
+          <div class="outcome-pill">
+            <strong>Clear incident stories</strong>
+            Every risky action is tied back to specific memories and tools, so reviews start with “here’s why it happened.”
+          </div>
+          <div class="outcome-pill">
+            <strong>Zombie‑agent detection</strong>
+            Spot memories that keep reappearing in bad behavior across sessions and agents.
+          </div>
+          <div class="outcome-pill">
+            <strong>Memory‑level controls</strong>
+            Quarantine or down‑weight bad chunks without rewriting prompts or touching model weights.
+          </div>
+        </div>
       </section>
 
       <!-- HOW IT WORKS -->
-      <section id="how-it-works">
+      <section class="fade" id="how-it-works">
         <h2>How Membrane works</h2>
         <div class="cols">
           <div>
             <strong>Observe memory</strong>
             <p>
-              Lightweight clients wrap the vector and key‑value stores your agents use
-              as long‑term memory. We log each write and read, plus the prompts, tools,
-              and actions around it, creating a clean timeline from memory to behavior.
+              SDKs wrap your agents’ memory stores and tool calls, emitting traces for
+              every write, read, and action under a shared ID.
             </p>
           </div>
           <div>
             <strong>Explain behavior</strong>
             <p>
-              Our backend correlates unexpected behaviors with specific memory chunks
-              and tool outputs, surfacing patterns that look like memory poisoning,
-              persistent backdoors, or goal drift—“this happened because of M‑324,” not
-              just “something is off.”
+              Our backend builds chains from tool outputs and prompts into the memory
+              they create, then into the later actions they drive.
             </p>
           </div>
           <div>
             <strong>Control risk</strong>
             <p>
-              A simple console lets security and platform teams inspect influential
-              memories, quarantine or mute suspicious chunks, and roll back to
-              pre‑compromise state without touching model weights or application logic.
+              A small console lets you inspect influential memories and decide which
+              ones to trust, mute, or roll back.
             </p>
           </div>
         </div>
       </section>
 
       <!-- WHY NOW -->
-      <section>
+      <section class="fade">
         <h2>Why now</h2>
-        <p style="color:var(--muted);font-size:0.9rem;margin-bottom:10px;">
-          Agents now run critical workflows with persistent memory, but most teams
-          have no idea how that memory is shaping decisions.
-        </p>
         <div class="cols">
           <div>
             <div class="tag"><span>☣</span> Zombie agents</div>
             <p>
-              Agents with long‑term memory quietly replay attacker instructions or
-              stale state across sessions, creating “zombie” behaviors that are hard
-              to see in normal testing but dangerous in production.
+              Agents with long‑term memory can quietly replay attacker instructions or
+              stale state across sessions, turning into “zombies” that are hard to see
+              with log‑based monitoring alone.
             </p>
           </div>
           <div>
-            <strong>No visibility at the memory layer</strong>
+            <strong>Blind spot at the memory layer</strong>
             <p>
-              Existing tools watch prompts, APIs, and permissions, but treat memory as
-              an opaque blob. The decisions that scare CISOs most are often driven by
-              stored state they never see.
+              Most tools watch prompts, APIs, and permissions—but not the memories
+              that actually shape behavior over days and weeks.
             </p>
           </div>
           <div>
             <strong>Our wedge</strong>
             <p>
-              Membrane owns the causal link between memory and action. We don’t replace
-              your observability or security stack—we give it the missing signal:
-              which memories are making your agents act strangely, and what to do
-              about it.
+              Membrane owns the link between memory and action, giving existing
+              observability and security stacks the missing signal they need to keep
+              agents safe.
             </p>
           </div>
         </div>
@@ -487,5 +522,18 @@
       <span>Contact: founders@membrane.ai</span>
     </footer>
   </div>
+
+  <script>
+    // simple scroll fade-in
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) e.target.classList.add('visible');
+        });
+      },
+      { threshold: 0.1 }
+    );
+    document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
