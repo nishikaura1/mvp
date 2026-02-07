@@ -328,7 +328,6 @@
       background:rgba(15,23,42,0.7);
     }
 
-    /* SECTIONS */
     section { margin-top:36px;margin-bottom:36px; }
 
     h2 {
@@ -337,46 +336,6 @@
       letter-spacing:.18em;
       color:var(--muted);
       margin-bottom:14px;
-    }
-
-    .outcomes {
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:12px;
-    }
-    @media (max-width:900px){ .outcomes{grid-template-columns:1fr;} }
-
-    .outcome-pill {
-      border-radius:var(--radius);
-      border:1px solid rgba(148,163,184,0.4);
-      padding:12px 12px;
-      background:rgba(2,6,23,0.9);
-      font-size:0.9rem;
-      color:var(--muted);
-    }
-    .outcome-pill strong {
-      display:block;
-      margin-bottom:4px;
-      color:var(--text);
-      font-size:0.9rem;
-    }
-
-    .cols {
-      display:grid;
-      grid-template-columns:repeat(3,minmax(0,1fr));
-      gap:18px;
-      font-size:0.9rem;
-    }
-    @media (max-width:900px){ .cols{grid-template-columns:1fr;} }
-
-    .cols strong {
-      display:block;
-      margin-bottom:4px;
-      font-weight:600;
-    }
-    .cols p {
-      color:var(--muted);
-      font-size:0.9rem;
     }
 
     .tag {
@@ -438,7 +397,7 @@
             <a href="mailto:founders@membrane.ai" class="btn">
               <span>✉</span> Request early access
             </a>
-            <a href="#how-it-works" class="btn secondary">See how it works</a>
+            <a href="#value" class="btn secondary">See how it works</a>
           </div>
 
           <div class="meta">
@@ -501,59 +460,91 @@
         </aside>
       </section>
 
-      <!-- WHAT YOU GET -->
-      <section class="fade" id="outcomes">
+      <!-- EXPERIENCE SCROLLER -->
+      <section class="fade" id="value">
         <h2>What you get</h2>
-        <div class="outcomes">
-          <div class="outcome-pill">
-            <strong>Incident stories</strong>
-            <p>Each risky action gets a one‑line memory cause.</p>
-          </div>
-          <div class="outcome-pill">
-            <strong>Zombie alerts</strong>
-            <p>We surface memories that keep showing up in bad runs.</p>
-          </div>
-          <div class="outcome-pill">
-            <strong>Memory kill‑switch</strong>
-            <p>Mute a single memory instead of shutting down the agent.</p>
-          </div>
-        </div>
-      </section>
 
-      <!-- HOW IT WORKS -->
-      <section class="fade" id="how-it-works">
-        <h2>How Membrane works</h2>
-        <div class="cols">
-          <div>
-            <strong>1 · Watch</strong>
-            <p>We track memory writes, reads, prompts, and tools.</p>
+        <div style="display:grid;grid-template-columns:20px minmax(0,1fr);gap:18px;align-items:flex-start;">
+          <!-- timeline spine -->
+          <div style="position:relative;">
+            <div style="position:absolute;top:6px;bottom:6px;left:9px;width:2px;background:rgba(148,163,184,0.35);"></div>
           </div>
-          <div>
-            <strong>2 · Connect</strong>
-            <p>We map tools → memories → later actions.</p>
-          </div>
-          <div>
-            <strong>3 · Act</strong>
-            <p>You review, trust, or mute individual chunks.</p>
-          </div>
-        </div>
-      </section>
 
-      <!-- WHY NOW -->
-      <section class="fade">
-        <h2>Why now</h2>
-        <div class="cols">
-          <div>
-            <div class="tag"><span>☣</span> Zombie agents</div>
-            <p>Long‑memory agents can repeat quiet, poisoned instructions.</p>
-          </div>
-          <div>
-            <strong>Blind memory layer</strong>
-            <p>Logs cover prompts and APIs, not the memories steering calls.</p>
-          </div>
-          <div>
-            <strong>Membrane’s wedge</strong>
-            <p>We add the missing memory signal to your existing tools.</p>
+          <div style="display:flex;flex-direction:column;gap:18px;">
+            <!-- 1: Outcomes -->
+            <article style="position:relative;padding-left:26px;">
+              <div style="position:absolute;left:0;top:4px;width:14px;height:14px;border-radius:999px;border:2px solid #38bdf8;background:#020617;box-shadow:0 0 10px rgba(56,189,248,0.7);"></div>
+
+              <div style="border-radius:18px;border:1px solid rgba(148,163,184,0.45);background:rgba(2,6,23,0.9);padding:14px 14px 10px;">
+                <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.18em;color:#9ca3af;margin-bottom:6px;">
+                  Outcomes
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                  <div style="flex:1 1 160px;">
+                    <div style="font-weight:600;margin-bottom:2px;">Incident stories</div>
+                    <div style="font-size:0.86rem;color:#9ca3af;">One‑line “because of memory X” for each risky action.</div>
+                  </div>
+                  <div style="flex:1 1 160px;">
+                    <div style="font-weight:600;margin-bottom:2px;">Zombie alerts</div>
+                    <div style="font-size:0.86rem;color:#9ca3af;">Memories that keep reappearing in bad runs.</div>
+                  </div>
+                  <div style="flex:1 1 160px;">
+                    <div style="font-weight:600;margin-bottom:2px;">Memory kill‑switch</div>
+                    <div style="font-size:0.86rem;color:#9ca3af;">Mute a single memory, not the whole agent.</div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 2: How it works -->
+            <article style="position:relative;padding-left:26px;">
+              <div style="position:absolute;left:0;top:4px;width:14px;height:14px;border-radius:999px;border:2px solid #38bdf8;background:#020617;"></div>
+
+              <div style="border-radius:18px;border:1px solid rgba(148,163,184,0.45);background:rgba(2,6,23,0.9);padding:14px 14px 10px;">
+                <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.18em;color:#9ca3af;margin-bottom:6px;">
+                  How Membrane works
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                  <div style="flex:1 1 140px;">
+                    <div style="font-weight:600;margin-bottom:2px;">1 · Watch</div>
+                    <div style="font-size:0.86rem;color:#9ca3af;">Trace memory writes, reads, prompts, tools.</div>
+                  </div>
+                  <div style="flex:1 1 140px;">
+                    <div style="font-weight:600;margin-bottom:2px;">2 · Connect</div>
+                    <div style="font-size:0.86rem;color:#9ca3af;">Map tools → memories → later actions.</div>
+                  </div>
+                  <div style="flex:1 1 140px;">
+                    <div style="font-weight:600;margin-bottom:2px;">3 · Act</div>
+                    <div style="font-size:0.86rem;color:#9ca3af;">Review, trust, or mute each chunk.</div>
+                  </div>
+                </div>
+              </div>
+            </article>
+
+            <!-- 3: Why now -->
+            <article style="position:relative;padding-left:26px;">
+              <div style="position:absolute;left:0;top:4px;width:14px;height:14px;border-radius:999px;border:2px solid #38bdf8;background:#020617;"></div>
+
+              <div style="border-radius:18px;border:1px solid rgba(148,163,184,0.45);background:rgba(2,6,23,0.9);padding:14px 14px 10px;">
+                <div style="font-size:0.78rem;text-transform:uppercase;letter-spacing:.18em;color:#9ca3af;margin-bottom:6px;">
+                  Why now
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:10px;">
+                  <div style="flex:1 1 160px;">
+                    <div class="tag"><span>☣</span> Zombie agents</div>
+                    <div style="font-size:0.86rem;color:#9ca3af;">Long‑memory agents can repeat quiet, poisoned instructions.</div>
+                  </div>
+                  <div style="flex:1 1 160px;">
+                    <div style="font-weight:600;margin-bottom:2px;">Blind memory layer</div>
+                    <div style="font-size:0.86rem;color:#9ca3af;">Logs see prompts/APIs, not the memories steering calls.</div>
+                  </div>
+                  <div style="flex:1 1 160px;">
+                    <div style="font-weight:600;margin-bottom:2px;">Membrane’s wedge</div>
+                    <div style="font-size:0.86rem;color:#9ca3af;">We add the missing memory signal to existing tools.</div>
+                  </div>
+                </div>
+              </div>
+            </article>
           </div>
         </div>
       </section>
