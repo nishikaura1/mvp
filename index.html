@@ -28,7 +28,7 @@
     }
     a { text-decoration:none;color:inherit; }
 
-    /* floating “data orbs” in background */
+    /* floating background orbs */
     .orb {
       position:fixed;
       width:120px;
@@ -42,8 +42,8 @@
       animation:float 12s ease-in-out infinite alternate;
     }
     .orb.orb-1 { top:16%; left:5%; }
-    .orb.orb-2 { top:64%; right:6%; animation-delay: -4s; }
-    .orb.orb-3 { top:40%; left:50%; width:160px;height:160px;opacity:0.12;animation-delay: -8s; }
+    .orb.orb-2 { top:64%; right:6%; animation-delay:-4s; }
+    .orb.orb-3 { top:40%; left:50%; width:160px;height:160px;opacity:0.12;animation-delay:-8s; }
 
     @keyframes float {
       0% { transform:translate3d(0,0,0) scale(1); }
@@ -311,7 +311,237 @@
       grid-template-columns:repeat(3,minmax(0,1fr));
       gap:12px;
     }
-    @media (max-width:900px){ .outcomes{grid-template-columns:1fr; } }
+    @media (max-width:900px){ .outcomes{grid-template-columns:1fr;} }
 
     .outcome-pill {
-      border-ra
+      border-radius:var(--radius);
+      border:1px solid rgba(148,163,184,0.4);
+      padding:12px 12px;
+      background:rgba(2,6,23,0.9);
+      font-size:0.9rem;
+      color:var(--muted);
+    }
+    .outcome-pill strong {
+      display:block;
+      margin-bottom:4px;
+      color:var(--text);
+      font-size:0.9rem;
+    }
+
+    .cols {
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:18px;
+      font-size:0.9rem;
+    }
+    @media (max-width:900px){ .cols{grid-template-columns:1fr;} }
+
+    .cols strong {
+      display:block;
+      margin-bottom:4px;
+      font-weight:600;
+    }
+    .cols p {
+      color:var(--muted);
+      font-size:0.9rem;
+    }
+
+    .tag {
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      padding:3px 9px;
+      border-radius:999px;
+      background:var(--accent-soft);
+      color:var(--accent);
+      font-size:0.75rem;
+      text-transform:uppercase;
+      letter-spacing:.12em;
+      margin-bottom:6px;
+    }
+    .tag span { font-size:0.9rem; }
+
+    footer {
+      border-top:1px solid var(--border);
+      margin-top:18px;
+      padding-top:12px;
+      font-size:0.78rem;
+      color:var(--muted);
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:space-between;
+      gap:6px;
+    }
+  </style>
+</head>
+<body>
+  <!-- animated background orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <div class="page">
+    <header>
+      <div class="logo">
+        <div class="logo-mark"></div>
+        <div>MEMBRANE</div>
+      </div>
+      <div class="chip">YC F25 · AI agent security</div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero fade">
+        <div>
+          <h1>
+            See which memories are<br />
+            <span>driving risky agent behavior.</span>
+          </h1>
+          <p class="hero-sub">
+            Membrane shows which long‑term memories and tools led to any agent action,
+            so security teams can explain and control zombie‑like behavior.
+          </p>
+
+          <div class="hero-actions">
+            <a href="mailto:founders@membrane.ai" class="btn">
+              <span>✉</span> Request early access
+            </a>
+            <a href="#how-it-works" class="btn secondary">See how it works</a>
+          </div>
+
+          <div class="meta">
+            <span><span class="dot"></span> Pre‑launch · MVP in development</span>
+            <span>For CISOs, AppSec, and AI platform teams with long‑memory agents</span>
+          </div>
+        </div>
+
+        <!-- INCIDENT CARD -->
+        <aside class="card fade">
+          <div class="card-title">One incident, fully explained</div>
+
+          <div class="metric-row">
+            <div class="metric-label">Agents monitored</div>
+            <div class="metric-value">38<span>today</span></div>
+          </div>
+          <div class="metric-row">
+            <div class="metric-label">Risky actions explained</div>
+            <div class="metric-value" style="color:var(--danger);">
+              17<span>this week</span>
+            </div>
+          </div>
+          <div class="metric-row" style="margin-bottom:12px;">
+            <div class="metric-label">Memories behind them</div>
+            <div class="metric-value">9<span>chunks</span></div>
+          </div>
+
+          <p class="mini-copy">
+            We show which memory → which tool call → which risky action.
+          </p>
+
+          <div class="flow">
+            <div class="flow-step">
+              <span>1 · Memory saved</span><br />
+              “Send monthly report to external email.”
+            </div>
+            <div class="flow-step">
+              <span>2 · Memory recalled</span><br />
+              Agent runs billing‑summary workflow.
+            </div>
+            <div class="flow-step">
+              <span>3 · Action taken</span><br />
+              Email with customer data leaves your org.
+            </div>
+          </div>
+
+          <div class="code">
+            <span class="code-prefix">membrane&gt;</span>
+            incident "billing-export-42"
+            <br />
+            <span class="code-prefix">cause&gt;</span>
+            memory_id="M-324" source="web_session_19"
+          </div>
+
+          <div class="note">
+            <span>◎</span> Drop‑in SDK · no model or prompt changes
+          </div>
+        </aside>
+      </section>
+
+      <!-- WHAT YOU GET -->
+      <section class="fade" id="outcomes">
+        <h2>What you get</h2>
+        <div class="outcomes">
+          <div class="outcome-pill">
+            <strong>Clear incident stories</strong>
+            Every risky action gets a one‑line “because of memory X” explanation.
+          </div>
+          <div class="outcome-pill">
+            <strong>Zombie‑agent alerts</strong>
+            We flag memories that keep reappearing in bad behavior.
+          </div>
+          <div class="outcome-pill">
+            <strong>Memory kill‑switch</strong>
+            Turn off a single memory instead of killing the whole agent.
+          </div>
+        </div>
+      </section>
+
+      <!-- HOW IT WORKS -->
+      <section class="fade" id="how-it-works">
+        <h2>How Membrane works</h2>
+        <div class="cols">
+          <div>
+            <strong>1 · Watch memory</strong>
+            <p>SDKs trace every memory write, read, prompt, and tool call.</p>
+          </div>
+          <div>
+            <strong>2 · Link cause & effect</strong>
+            <p>We connect tool outputs → memories → later actions.</p>
+          </div>
+          <div>
+            <strong>3 · Let you intervene</strong>
+            <p>Click to trust, mute, or roll back individual memory chunks.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY NOW -->
+      <section class="fade">
+        <h2>Why now</h2>
+        <div class="cols">
+          <div>
+            <div class="tag"><span>☣</span> Zombie agents</div>
+            <p>Long‑memory agents can quietly repeat poisoned instructions for weeks.</p>
+          </div>
+          <div>
+            <strong>Hidden memory layer</strong>
+            <p>Teams log prompts and APIs, but not the memories steering decisions.</p>
+          </div>
+          <div>
+            <strong>Our wedge</strong>
+            <p>We’re the missing memory signal existing security and observability tools don’t see.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <span>© 2026 Membrane</span>
+      <span>Contact: founders@membrane.ai</span>
+    </footer>
+  </div>
+
+  <script>
+    // scroll fade-in for sections
+    const observer = new IntersectionObserver(
+      entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) e.target.classList.add('visible');
+        });
+      },
+      { threshold: 0.15 }
+    );
+    document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
