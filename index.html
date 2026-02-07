@@ -28,27 +28,30 @@
     }
     a { text-decoration:none;color:inherit; }
 
-    /* floating “cyber” orbs */
+    /* BIGGER floating “cyber” orbs */
     .orb {
       position:fixed;
-      width:140px;
-      height:140px;
+      width:220px;
+      height:220px;
       border-radius:999px;
-      background:radial-gradient(circle at 30% 20%,rgba(56,189,248,0.75),transparent 60%);
-      opacity:0.2;
+      background:
+        radial-gradient(circle at 30% 20%,rgba(56,189,248,0.95),transparent 55%),
+        radial-gradient(circle at 70% 80%,rgba(59,130,246,0.6),transparent 60%);
+      opacity:0.25;
       filter:blur(1px);
       pointer-events:none;
       z-index:-1;
-      animation:float 14s ease-in-out infinite alternate;
+      animation:float 18s ease-in-out infinite alternate;
+      mix-blend-mode:screen;
     }
-    .orb.orb-1 { top:14%; left:4%; }
-    .orb.orb-2 { top:62%; right:6%; animation-delay:-5s; }
-    .orb.orb-3 { top:40%; left:52%; width:180px;height:180px;opacity:0.14;animation-delay:-9s; }
+    .orb.orb-1 { top:8%; left:0%; }
+    .orb.orb-2 { top:55%; right:-4%; animation-delay:-6s; }
+    .orb.orb-3 { top:34%; left:50%; width:260px;height:260px;opacity:0.18;animation-delay:-10s; }
 
     @keyframes float {
       0% { transform:translate3d(0,0,0) scale(1); }
-      50% { transform:translate3d(18px,-12px,0) scale(1.06); }
-      100% { transform:translate3d(-14px,16px,0) scale(1.02); }
+      50% { transform:translate3d(28px,-18px,0) scale(1.08); }
+      100% { transform:translate3d(-22px,22px,0) scale(1.03); }
     }
 
     .page {
@@ -59,7 +62,7 @@
 
     header {
       display:flex;
-      justify-content:space-between;
+      justify-content:flex-start;
       align-items:center;
       margin-bottom:32px;
     }
@@ -76,21 +79,12 @@
       width:24px;height:24px;
       border-radius:999px;
       background:radial-gradient(circle at 20% 0,#38bdf8,#0f172a 55%,#000 100%);
-      box-shadow:0 0 22px rgba(56,189,248,0.55);
+      box-shadow:0 0 22px rgba(56,189,248,0.7);
       animation:pulse 3s ease-in-out infinite;
     }
     @keyframes pulse {
-      0%,100%{box-shadow:0 0 18px rgba(56,189,248,0.4);}
-      50%{box-shadow:0 0 32px rgba(56,189,248,0.85);}
-    }
-    .chip {
-      padding:4px 10px;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,0.45);
-      font-size:0.72rem;
-      text-transform:uppercase;
-      letter-spacing:.14em;
-      color:var(--muted);
+      0%,100%{box-shadow:0 0 20px rgba(56,189,248,0.6);}
+      50%{box-shadow:0 0 36px rgba(56,189,248,0.95);}
     }
 
     /* shared scroll animation */
@@ -111,8 +105,44 @@
       gap:28px;
       margin-bottom:50px;
       align-items:center;
+      position:relative;
+      overflow:hidden;
+      border-radius:26px;
+      padding:24px 22px 26px;
+      background:radial-gradient(circle at top left,#020b26,#020617 55%);
+      border:1px solid rgba(15,23,42,0.9);
     }
-    @media (max-width:800px){ .hero{grid-template-columns:1fr;margin-bottom:32px;} }
+
+    /* animated scanlines over hero */
+    .hero::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(15,23,42,0) 0,
+          rgba(15,23,42,0) 50%,
+          rgba(0,0,0,0.22) 50.5%,
+          rgba(15,23,42,0) 51%
+        );
+      background-size:100% 4px;
+      mix-blend-mode:soft-light;
+      opacity:.5;
+      pointer-events:none;
+      animation:scan 8s linear infinite;
+    }
+    @keyframes scan {
+      0% { transform:translateY(-10px); }
+      100% { transform:translateY(10px); }
+    }
+
+    @media (max-width:800px){
+      .hero{
+        grid-template-columns:1fr;
+        margin-bottom:32px;
+      }
+    }
 
     h1 {
       font-size:2.6rem;
@@ -172,7 +202,32 @@
     .meta span { display:inline-flex;align-items:center;gap:5px; }
     .dot { width:6px;height:6px;border-radius:999px;background:#22c55e; }
 
-    /* INCIDENT CARD */
+    /* INCIDENT CARD with “data rain” */
+    .card-wrapper {
+      position:relative;
+    }
+    .card-wrapper::before{
+      content:"";
+      position:absolute;
+      inset:-12px;
+      background:
+        repeating-linear-gradient(
+          to bottom,
+          rgba(56,189,248,0.06) 0,
+          rgba(56,189,248,0.08) 1px,
+          transparent 3px,
+          transparent 6px
+        );
+      opacity:0.5;
+      mix-blend-mode:screen;
+      pointer-events:none;
+      animation:dataRain 10s linear infinite;
+    }
+    @keyframes dataRain {
+      0% { transform:translateY(-12px); }
+      100% { transform:translateY(12px); }
+    }
+
     .card {
       background:radial-gradient(circle at top left,#0b1120,#020617 55%);
       border-radius:var(--radius);
@@ -187,7 +242,7 @@
       content:"";
       position:absolute;
       top:-40%;left:-40%;right:-40%;bottom:-40%;
-      background:linear-gradient(120deg,transparent,rgba(56,189,248,0.2),transparent);
+      background:linear-gradient(120deg,transparent,rgba(56,189,248,0.22),transparent);
       opacity:0;
       transform:translateX(-40%);
       animation:glow-sweep 7s linear infinite;
@@ -277,7 +332,7 @@
     }
 
     /* SECTIONS */
-    section { margin-bottom:50px; }
+    section { margin-top:36px;margin-bottom:36px; }
 
     h2 {
       font-size:0.9rem;
@@ -344,7 +399,7 @@
 
     footer {
       border-top:1px solid var(--border);
-      margin-top:18px;
+      margin-top:24px;
       padding-top:12px;
       font-size:0.78rem;
       color:var(--muted);
@@ -367,7 +422,6 @@
         <div class="logo-mark"></div>
         <div>MEMBRANE</div>
       </div>
-      <div class="chip">YC F25 · AI agent security</div>
     </header>
 
     <main>
@@ -397,53 +451,55 @@
         </div>
 
         <!-- INCIDENT CARD -->
-        <aside class="card fade">
-          <div class="card-title">One incident, fully explained</div>
+        <aside class="card-wrapper fade">
+          <div class="card">
+            <div class="card-title">One incident, fully explained</div>
 
-          <div class="metric-row">
-            <div class="metric-label">Agents monitored</div>
-            <div class="metric-value">38<span>today</span></div>
-          </div>
-          <div class="metric-row">
-            <div class="metric-label">Risky actions explained</div>
-            <div class="metric-value" style="color:var(--danger);">
-              17<span>this week</span>
+            <div class="metric-row">
+              <div class="metric-label">Agents monitored</div>
+              <div class="metric-value">38<span>today</span></div>
             </div>
-          </div>
-          <div class="metric-row" style="margin-bottom:12px;">
-            <div class="metric-label">Memories behind them</div>
-            <div class="metric-value">9<span>chunks</span></div>
-          </div>
-
-          <p class="mini-copy">
-            We show which memory → which tool call → which risky action.
-          </p>
-
-          <div class="flow">
-            <div class="flow-step">
-              <span>1 · Memory saved</span><br />
-              “Send monthly report to external email.”
+            <div class="metric-row">
+              <div class="metric-label">Risky actions explained</div>
+              <div class="metric-value" style="color:var(--danger);">
+                17<span>this week</span>
+              </div>
             </div>
-            <div class="flow-step">
-              <span>2 · Memory recalled</span><br />
-              Agent runs billing‑summary workflow.
+            <div class="metric-row" style="margin-bottom:12px;">
+              <div class="metric-label">Memories behind them</div>
+              <div class="metric-value">9<span>chunks</span></div>
             </div>
-            <div class="flow-step">
-              <span>3 · Action taken</span><br />
-              Email with customer data leaves your org.
+
+            <p class="mini-copy">
+              We show which memory → which tool call → which risky action.
+            </p>
+
+            <div class="flow">
+              <div class="flow-step">
+                <span>1 · Memory saved</span><br />
+                “Send monthly report to external email.”
+              </div>
+              <div class="flow-step">
+                <span>2 · Memory recalled</span><br />
+                Agent runs billing‑summary workflow.
+              </div>
+              <div class="flow-step">
+                <span>3 · Action taken</span><br />
+                Email with customer data leaves your org.
+              </div>
             </div>
-          </div>
 
-          <div class="code">
-            <span class="code-prefix">membrane&gt;</span>
-            incident "billing-export-42"
-            <br />
-            <span class="code-prefix">cause&gt;</span>
-            memory_id="M-324" source="web_session_19"
-          </div>
+            <div class="code">
+              <span class="code-prefix">membrane&gt;</span>
+              incident "billing-export-42"
+              <br />
+              <span class="code-prefix">cause&gt;</span>
+              memory_id="M-324" source="web_session_19"
+            </div>
 
-          <div class="note">
-            <span>◎</span> Drop‑in SDK · no model or prompt changes
+            <div class="note">
+              <span>◎</span> Drop‑in SDK · no model or prompt changes
+            </div>
           </div>
         </aside>
       </section>
@@ -513,7 +569,7 @@
   </div>
 
   <script>
-    // Scroll fade-in for any .fade element
+    // Scroll fade-in for sections
     const observer = new IntersectionObserver(
       entries => {
         entries.forEach(entry => {
@@ -525,7 +581,6 @@
       },
       { threshold: 0.15 }
     );
-
     document.querySelectorAll('.fade').forEach(el => observer.observe(el));
   </script>
 </body>
